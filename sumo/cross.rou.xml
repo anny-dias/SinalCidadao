@@ -1,0 +1,11 @@
+<routes>
+  <vType id="car" accel="2.6" decel="4.5" sigma="0.5" length="5" maxSpeed="13.9"/>
+  <route id="ns" edges="north_in south_out"/>
+  <route id="sn" edges="south_in north_out"/>
+  <route id="ew" edges="east_in west_out"/>
+  <route id="we" edges="west_in east_out"/>
+  <flow id="north_flow" type="car" route="ns" begin="0" end="600" vehsPerHour="1100" departLane="best" departSpeed="max"/>
+  <flow id="south_flow" type="car" route="sn" begin="0" end="600" vehsPerHour="500" departLane="best" departSpeed="max"/>
+  <flow id="east_flow" type="car" route="ew" begin="0" end="600" vehsPerHour="320" departLane="best" departSpeed="max"/>
+  <flow id="west_flow" type="car" route="we" begin="0" end="600" vehsPerHour="260" departLane="best" departSpeed="max"/>
+</routes>

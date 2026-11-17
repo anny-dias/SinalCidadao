@@ -1,0 +1,8 @@
+[
+  {"event_id":"sim-001","timestamp":"2026-11-17T12:00:00Z","camera_online":true,"approaches":[{"id":"Norte","queue_vehicles":12,"wait_seconds":56,"pedestrians_crossing":0},{"id":"Sul","queue_vehicles":4,"wait_seconds":20,"pedestrians_crossing":0}]},
+  {"event_id":"sim-002","timestamp":"2026-11-17T12:01:00Z","camera_online":true,"approaches":[{"id":"Norte","queue_vehicles":15,"wait_seconds":30,"pedestrians_crossing":0},{"id":"Sul","queue_vehicles":2,"wait_seconds":100,"pedestrians_crossing":0}]},
+  {"event_id":"sim-003","timestamp":"2026-11-17T12:02:00Z","camera_online":true,"approaches":[{"id":"Norte","queue_vehicles":6,"wait_seconds":30,"pedestrians_crossing":0},{"id":"Faixa escolar","queue_vehicles":0,"wait_seconds":15,"pedestrians_crossing":2}]},
+  {"event_id":"sim-004","timestamp":"2026-11-17T12:03:00Z","camera_online":false,"approaches":[{"id":"Norte","queue_vehicles":8,"wait_seconds":20,"pedestrians_crossing":0}]},
+  {"event_id":"sim-001","timestamp":"2026-11-17T12:00:00Z","camera_online":true,"approaches":[{"id":"Norte","queue_vehicles":12,"wait_seconds":56,"pedestrians_crossing":0}]},
+  {"event_id":"sim-005","timestamp":"2026-11-17T12:04:00Z","camera_online":true,"approaches":[{"id":"Norte","queue_vehicles":-3,"wait_seconds":20,"pedestrians_crossing":0}]}
+]

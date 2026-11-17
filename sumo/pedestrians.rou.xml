@@ -1,0 +1,11 @@
+<routes>
+  <!-- Fluxos com velocidade reduzida de 0.85 m/s para ensaiar travessias mais lentas.
+       Os trajetos são escolhidos em lados adjacentes do cruzamento. -->
+  <vType id="pedestrian_slow" vClass="pedestrian" speedFactor="0.75"/>
+  <personFlow id="ped_n_e" begin="20" end="540" period="17" type="pedestrian_slow" departPos="200">
+    <walk from="north_in" to="east_out" arrivalPos="15"/>
+  </personFlow>
+  <personFlow id="ped_s_w" begin="35" end="540" period="23" type="pedestrian_slow" departPos="200">
+    <walk from="south_in" to="west_out" arrivalPos="15"/>
+  </personFlow>
+</routes>

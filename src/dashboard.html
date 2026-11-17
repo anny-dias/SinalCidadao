@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Sinal Cidadão | Centro de controle</title>
+  <style>
+    :root{color-scheme:dark;--bg:#080f1d;--card:#101d30;--line:#24334a;--ink:#eaf2fe;--muted:#99adc8;--mint:#45e2ad;--blue:#5b9dfa;--amber:#ffca76}
+    *{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 90% 0%,#143153 0%,transparent 35%),var(--bg);font-family:Inter,"Segoe UI",system-ui,sans-serif;color:var(--ink)}
+    button,select{font:inherit}button{cursor:pointer}main{max-width:1250px;margin:auto;padding:32px 24px 64px}
+    header{display:flex;justify-content:space-between;gap:18px;align-items:center;padding-bottom:36px}
+    .brand{display:flex;align-items:center;gap:13px;font-weight:800;letter-spacing:-.6px;font-size:22px}.mark{display:grid;place-items:center;width:40px;height:40px;background:#163b3c;border:1px solid #3a796c;border-radius:13px}
+    .tag{border:1px solid #325961;background:#112f38;color:#80efca;padding:7px 12px;border-radius:100px;font-size:11px;font-weight:700;letter-spacing:1px}
+    h1{font-size:clamp(30px,4.5vw,54px);letter-spacing:-2px;line-height:1.04;margin:0 0 12px}.lead{color:var(--muted);margin:0;font-size:15px;line-height:1.65;max-width:640px}
+    .hero{display:flex;gap:20px;justify-content:space-between;align-items:end;margin-bottom:27px}
+    .button{color:var(--ink);background:#1f3b59;padding:12px 17px;border:1px solid #42617e;border-radius:11px;font-weight:650}.button:hover{background:#294f76}
+    .status{margin-bottom:22px;color:var(--muted);font-size:13px;min-height:20px}.status.error{color:#ff9797}
+    .grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}.card,.panel{background:linear-gradient(165deg,#14243a,#0f1b2e);border:1px solid var(--line);border-radius:18px}
+    .card{padding:22px;min-height:153px}.eyebrow{font-size:12px;color:var(--muted);font-weight:650;line-height:1.5}.big{font-size:31px;letter-spacing:-1.3px;font-weight:800;margin:14px 0 7px}.unit{font-size:15px;color:var(--muted);font-weight:500}.positive{color:var(--mint)}.warning{color:var(--amber)}.sub{color:var(--muted);font-size:12px}
+    .layout{display:grid;grid-template-columns:1.5fr 1fr;gap:16px;margin-top:17px}.panel{padding:24px;min-width:0}
+    .panel h2{font-size:18px;letter-spacing:-.3px;margin:0 0 6px}.hint{font-size:12px;color:var(--muted);line-height:1.6;margin:0 0 22px}
+    .bar-row{display:grid;grid-template-columns:150px 1fr 64px;align-items:center;gap:12px;margin:20px 0}.label{font-size:12px;color:#c8d5e8}.track{height:12px;border-radius:40px;background:#263853;overflow:hidden}.bar{height:100%;border-radius:40px;min-width:2px;transition:width .35s}.fixed{background:#879bb8}.adaptive{background:var(--blue)}.priority{background:var(--mint)}.number{text-align:right;font-size:12px;font-weight:750}
+    .detail{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:14px 0;border-bottom:1px solid var(--line);font-size:13px}.detail:last-child{border:0}.detail span:first-child{color:var(--muted)}.detail strong{font-variant-numeric:tabular-nums}
+    .table-wrap{overflow:auto}table{border-collapse:collapse;width:100%;min-width:680px;font-size:13px}td,th{padding:15px 12px;text-align:left;border-bottom:1px solid var(--line)}th{color:var(--muted);font-weight:600}td{color:#dbe6f5}tr:last-child td{border:0}.pill{display:inline-block;border-radius:50px;padding:5px 9px;background:#19394c;color:#8fd7ed;font-size:11px}
+    .footer{margin-top:26px;color:#88a0bb;font-size:12px;line-height:1.7}.empty{color:var(--muted);font-size:13px;padding:12px 0}section{margin-top:17px}
+    .actions{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:19px 0}.actions select{background:#0b1d31;color:var(--ink);border:1px solid #37506b;border-radius:10px;padding:12px;max-width:100%;min-width:245px}.button.primary{background:#147e6c;border-color:#29b897}.button.primary:hover{background:#199983}.button:disabled,.actions select:disabled{opacity:.45;cursor:not-allowed}.job-status{border-radius:11px;padding:14px 16px;background:#0b1a2c;border:1px solid #273c55;color:#bcd3ee;font-size:13px;line-height:1.7}.job-status strong{color:var(--mint)}details{margin-top:12px}summary{cursor:pointer;color:#a6c7fa;font-size:13px}.job-output{background:#070e19;color:#a9d5e1;white-space:pre-wrap;overflow-wrap:anywhere;padding:15px;border-radius:10px;max-height:310px;overflow:auto;font-size:12px}
+    @media(max-width:950px){.grid{grid-template-columns:repeat(2,1fr)}.layout{grid-template-columns:1fr}.hero{align-items:start}.bar-row{grid-template-columns:125px 1fr 60px}}
+    @media(max-width:550px){main{padding:22px 14px 50px}header{padding-bottom:32px}.brand{font-size:18px}.tag{font-size:9px}.hero{flex-direction:column;align-items:start}.grid{grid-template-columns:1fr 1fr;gap:9px}.card{padding:15px;min-height:135px}.big{font-size:24px}.panel{padding:18px}.bar-row{grid-template-columns:100px 1fr 53px;gap:7px}.label,.number{font-size:11px}}
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <div class="brand"><span class="mark">🚦</span><span>Sinal Cidadão</span></div>
+    <span class="tag">PROTÓTIPO · SUMO + RPA</span>
+  </header>
+  <div class="hero">
+    <div><h1>Mobilidade inteligente.<br><span class="positive">Pessoas em primeiro lugar.</span></h1>
+      <p class="lead">Resultados reais dos ensaios simulados. Compare controle fixo, adaptativo e adaptativo com prioridade de travessia.</p>
+    </div>
+    <button class="button" id="refresh" type="button">↻ Atualizar dados</button>
+  </div>
+  <div class="status" id="status" role="status">Carregando resultados…</div>
+  <div class="grid">
+    <div class="card"><div class="eyebrow">Espera veicular · prioritário</div><div class="big" id="vehicle-wait">—</div><div class="sub" id="vehicle-delta">Comparado ao modo fixo</div></div>
+    <div class="card"><div class="eyebrow">Espera antes da travessia</div><div class="big" id="ped-wait">—</div><div class="sub" id="ped-delta">Comparado ao modo fixo</div></div>
+    <div class="card"><div class="eyebrow">Veículos concluídos</div><div class="big" id="vehicles">—</div><div class="sub">Chegaram ao destino em 600 passos</div></div>
+    <div class="card"><div class="eyebrow">Prioridades acionadas</div><div class="big positive" id="priorities">—</div><div class="sub" id="alerts">Alertas de espera: —</div></div>
+  </div>
+  <div class="layout">
+    <section class="panel"><h2>Comparativo de espera dos veículos</h2><p class="hint">Menor é melhor · média por viagem concluída, em segundos.</p>
+      <div id="vehicle-bars" class="empty">Aguardando execuções…</div>
+    </section>
+    <section class="panel"><h2>Impacto para pedestres</h2><p class="hint">Espera observada antes de entrar na faixa (amostras TraCI).</p>
+      <div id="ped-bars" class="empty">Aguardando execuções…</div>
+      <div class="detail"><span>Maior espera · prioritário</span><strong id="ped-max">—</strong></div>
+      <div class="detail"><span>Travessias concluídas · prioritário</span><strong id="ped-crossings">—</strong></div>
+    </section>
+  </div>
+  <section class="panel" id="laboratorio"><h2>Laboratório de simulação</h2><p class="hint">Execute cenários no SUMO-GUI ou rode todos os testes diretamente daqui. As janelas do SUMO abrem separadamente; mantenha este servidor e o navegador abertos.</p>
+    <div class="actions">
+      <select id="scenario" aria-label="Escolher cenário">
+        <option value="priority_gui">Adaptativo + prioridade de pedestres</option>
+        <option value="adaptive_gui">Adaptativo sem prioridade adicional</option>
+        <option value="fixed_gui">Semáforo fixo</option>
+      </select>
+      <button class="button primary" data-job="scenario" type="button">▶ Iniciar simulação</button>
+      <button class="button" data-job="compare" type="button">▥ Comparar 3 cenários</button>
+      <button class="button" data-job="tests" type="button">✓ Executar testes</button>
+    </div>
+    <div class="job-status" id="job-status" role="status">Pronto para iniciar uma operação. Nenhum comando é executado sem seu clique.</div>
+    <div id="job-results"></div>
+  </section>
+  <section class="panel"><h2>Últimas simulações</h2><p class="hint">Arquivos *.metrics.json criados pelo SUMO · atualização manual ou automática a cada 15 segundos.</p>
+    <div class="table-wrap"><table><thead><tr><th>Execução</th><th>Modo</th><th>Demanda</th><th>Veículos concluídos</th><th>Espera veicular</th><th>Espera pedestre</th><th>Prioridades</th></tr></thead><tbody id="runs"><tr><td colspan="7">Carregando…</td></tr></tbody></table></div>
+  </section>
+  <p class="footer">Ambiente acadêmico e simulado. Não controla semáforos reais nem comprova segurança viária em ambiente físico. A métrica “espera veicular” desta página é por viagem concluída; a espera de pedestres é estimada por observações TraCI. Os três cenários possuem a mesma duração e demanda, mas os resultados dependem da configuração e da semente da simulação.</p>
+</main>
+<script>
+const $=id=>document.getElementById(id);
+const fmt=(v,d=2)=>typeof v==='number'&&Number.isFinite(v)?v.toLocaleString('pt-BR',{minimumFractionDigits:d,maximumFractionDigits:d}):'—';
+const sec=v=>typeof v==='number'?fmt(v)+' <span class="unit">s</span>':'—';
+const names={fixed:'Semáforo fixo',adaptive_no_priority:'Adaptativo',adaptive_priority:'Adaptativo + pedestres'};
+const styles={fixed:'fixed',adaptive_no_priority:'adaptive',adaptive_priority:'priority'};
+const groups=['fixed','adaptive_no_priority','adaptive_priority'];
+function delta(now,base){if(typeof now!=='number'||typeof base!=='number'||base===0)return 'Comparação indisponível';let pct=(now/base-1)*100;return (pct<=0?'↓ ':'↑ ')+fmt(Math.abs(pct),1)+'% '+(pct<=0?'menos':'mais')+' que o fixo';}
+function bars(target,comparison,field){const values=groups.filter(k=>typeof comparison[k]?.[field]==='number');if(!values.length){$(target).textContent='Execute os cenários para visualizar o comparativo.';return;}
+ const max=Math.max(...values.map(k=>comparison[k][field]),1);
+ $(target).replaceChildren(...values.map(k=>{const row=document.createElement('div');row.className='bar-row';const label=document.createElement('span');label.className='label';label.textContent=names[k];const track=document.createElement('div');track.className='track';const bar=document.createElement('div');bar.className='bar '+styles[k];bar.style.width=(comparison[k][field]/max*100)+'%';track.append(bar);const num=document.createElement('strong');num.className='number';num.textContent=fmt(comparison[k][field]);row.append(label,track,num);return row;}));
+}
+async function load(){
+ try{
+ const [r,c]=await Promise.all([fetch('/api/runs',{cache:'no-store'}),fetch('/api/comparison',{cache:'no-store'})]);if(!r.ok||!c.ok)throw Error('Não foi possível consultar os relatórios');
+ const [runs,comparison]=await Promise.all([r.json(),c.json()]);const fixed=comparison.fixed, priority=comparison.adaptive_priority;
+ $('vehicle-wait').innerHTML=sec(priority?.average_vehicle_waiting_seconds);
+ $('ped-wait').innerHTML=sec(priority?.average_pre_crossing_wait_seconds);
+ $('vehicle-delta').textContent=delta(priority?.average_vehicle_waiting_seconds,fixed?.average_vehicle_waiting_seconds);
+ $('ped-delta').textContent=delta(priority?.average_pre_crossing_wait_seconds,fixed?.average_pre_crossing_wait_seconds);
+ $('vehicles').textContent=priority?.completed_vehicle_trips??'—';$('priorities').textContent=priority?.pedestrian_priority_adjustments??'—';
+ $('alerts').textContent='Alertas de espera: '+(priority?.pedestrian_wait_alerts??'—');
+ $('ped-max').innerHTML=sec(priority?.maximum_observed_pre_crossing_wait_seconds);$('ped-crossings').textContent=priority?.observed_pedestrian_crossing_completions??'—';
+ bars('vehicle-bars',comparison,'average_vehicle_waiting_seconds');bars('ped-bars',comparison,'average_pre_crossing_wait_seconds');
+ const tbody=$('runs');tbody.replaceChildren();for(const run of runs.slice(0,12)){
+ const tr=document.createElement('tr');const timestamp=run.run_id.match(/(\d{8})T(\d{6})/);const date=timestamp?timestamp[1].slice(6,8)+'/'+timestamp[1].slice(4,6)+' '+timestamp[2].slice(0,2)+':'+timestamp[2].slice(2,4):run.run_id;
+ const cols=[date,run.mode==='fixed'?'Fixo':run.pedestrian_priority_enabled?'Adaptativo + prioridade':'Adaptativo',run.pedestrian_demand==='high'?'Alta':'Normal',run.completed_vehicle_trips??'—',fmt(run.average_vehicle_waiting_seconds),fmt(run.average_pre_crossing_wait_seconds),run.pedestrian_priority_adjustments??'—'];
+ cols.forEach((value,i)=>{const td=document.createElement('td');if(i===1){const pill=document.createElement('span');pill.className='pill';pill.textContent=value;td.append(pill);}else td.textContent=value;tr.append(td)});tbody.append(tr);
+ }if(!runs.length){const tr=document.createElement('tr');const td=document.createElement('td');td.colSpan=7;td.textContent='Nenhuma execução encontrada. Execute o SUMO e atualize a página.';tr.append(td);tbody.append(tr);}
+ $('status').className='status';$('status').textContent=runs.length?'● Dados carregados · '+runs.length+' execução(ões) disponíveis · Comparação de demanda alta: '+Object.keys(comparison).length+'/3 cenários':'● Aguardando execuções do SUMO';}
+ catch(e){$('status').className='status error';$('status').textContent='Erro ao carregar: '+e.message;}
+}
+$('refresh').addEventListener('click',load);load();setInterval(load,15000);
+let lastJobId=null,lastJobStatus=null;
+async function startJob(action){
+ try{const response=await fetch('/api/jobs',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action})});const data=await response.json();if(!response.ok)throw Error(data.error||'Erro ao iniciar');await updateJobs();}
+ catch(e){$('job-status').textContent='Não foi possível iniciar: '+e.message;}
+}
+document.querySelectorAll('[data-job]').forEach(button=>button.addEventListener('click',()=>startJob(button.dataset.job==='scenario'?$('scenario').value:button.dataset.job)));
+async function updateJobs(){
+ try{const response=await fetch('/api/jobs',{cache:'no-store'});if(!response.ok)throw Error('Status indisponível');const job=await response.json();const running=job.status==='running';document.querySelectorAll('[data-job]').forEach(button=>button.disabled=running);$('scenario').disabled=running;
+ if(job.status==='idle')return;
+ const prefix=running?'⏳ Executando':job.status==='completed'?'✅ Concluído':'⚠ Falha';
+ const progress=running?' · Etapa '+job.current+'/'+job.total+' · '+(job.current_label||job.label):'';
+ $('job-status').textContent=prefix+': '+job.label+progress+(job.error?' · '+job.error:'');
+ if(job.job_id!==lastJobId||job.status!==lastJobStatus||running){
+  const panel=$('job-results');panel.replaceChildren();for(const result of job.results){
+   const details=document.createElement('details');const summary=document.createElement('summary');summary.textContent=(result.passed?'✅ ':'❌ ')+result.label+(result.tests_count!==undefined?' · '+result.tests_count+' testes':'');details.append(summary);
+   const pre=document.createElement('pre');pre.className='job-output';pre.textContent=result.output_tail||'Sem saída';details.append(pre);panel.append(details);
+  }
+  if(!running&&job.status==='completed'&&lastJobStatus==='running')await load();
+  lastJobId=job.job_id;lastJobStatus=job.status;
+ }
+ }catch(e){$('job-status').textContent='Não foi possível consultar as operações: '+e.message;}
+}
+updateJobs();setInterval(updateJobs,2000);
+</script>
+</body>
+</html>

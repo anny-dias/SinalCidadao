@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" targetNamespace="https://citizenflow.example/bpmn">
+ <process id="CitizenFlowRPA" name="Processar leituras e auditar decisoes do Sinal Cidadao" isExecutable="false">
+  <startEvent id="start" name="Lote recebido"/>
+  <task id="read" name="Carregar JSON"/>
+  <exclusiveGateway id="validFile" name="Arquivo válido?"/>
+  <task id="loop" name="Ler proximo evento; validar e deduplicar"/>
+  <exclusiveGateway id="validEvent" name="Evento válido e novo?"/>
+  <task id="skip" name="Registrar falha ou duplicata"/>
+  <task id="decide" name="Aplicar prioridade, travessia ou fallback"/>
+  <task id="save" name="Gravar SQLite e log"/>
+  <task id="publish" name="Disponibilizar API e painel"/>
+  <exclusiveGateway id="moreEvents" name="Ha mais eventos?"/>
+  <task id="fileError" name="Registrar erro e encerrar com falha"/>
+  <endEvent id="end" name="Lote concluído"/>
+  <endEvent id="failed" name="Falha de entrada"/>
+  <sequenceFlow id="f1" sourceRef="start" targetRef="read"/>
+  <sequenceFlow id="f2" sourceRef="read" targetRef="validFile"/>
+  <sequenceFlow id="f3" sourceRef="validFile" targetRef="loop"><conditionExpression xsi:type="tFormalExpression">sim</conditionExpression></sequenceFlow>
+  <sequenceFlow id="f4" sourceRef="validFile" targetRef="fileError"><conditionExpression xsi:type="tFormalExpression">não</conditionExpression></sequenceFlow>
+  <sequenceFlow id="f5" sourceRef="fileError" targetRef="failed"/>
+  <sequenceFlow id="f6" sourceRef="loop" targetRef="validEvent"/>
+  <sequenceFlow id="f7" sourceRef="validEvent" targetRef="skip"><conditionExpression xsi:type="tFormalExpression">não</conditionExpression></sequenceFlow>
+  <sequenceFlow id="f8" sourceRef="validEvent" targetRef="decide"><conditionExpression xsi:type="tFormalExpression">sim</conditionExpression></sequenceFlow>
+  <sequenceFlow id="f9" sourceRef="decide" targetRef="save"/>
+  <sequenceFlow id="f10" sourceRef="save" targetRef="moreEvents"/>
+  <sequenceFlow id="f11" sourceRef="skip" targetRef="moreEvents"/>
+  <sequenceFlow id="f12" sourceRef="moreEvents" targetRef="loop"><conditionExpression xsi:type="tFormalExpression">sim</conditionExpression></sequenceFlow>
+  <sequenceFlow id="f13" sourceRef="moreEvents" targetRef="publish"><conditionExpression xsi:type="tFormalExpression">nao</conditionExpression></sequenceFlow>
+  <sequenceFlow id="f14" sourceRef="publish" targetRef="end"/>
+ </process>
+</definitions>

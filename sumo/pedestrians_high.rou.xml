@@ -1,0 +1,10 @@
+<routes>
+  <!-- Demanda elevada: rotas iguais ao cenário padrão; somente frequências mudam. -->
+  <vType id="pedestrian_slow" vClass="pedestrian" speedFactor="0.75"/>
+  <personFlow id="ped_n_e_high" begin="20" end="540" period="5" type="pedestrian_slow" departPos="200">
+    <walk from="north_in" to="east_out" arrivalPos="15"/>
+  </personFlow>
+  <personFlow id="ped_s_w_high" begin="35" end="540" period="7" type="pedestrian_slow" departPos="200">
+    <walk from="south_in" to="west_out" arrivalPos="15"/>
+  </personFlow>
+</routes>

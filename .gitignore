@@ -1,0 +1,10 @@
+__pycache__/
+*.pyc
+*.db
+*.sqlite
+.venv/
+logs/*.jsonl
+data/runs/
+data/validacao_final.json
+CitizenFlow_RPA_Entrega.zip
+.pytest_cache/

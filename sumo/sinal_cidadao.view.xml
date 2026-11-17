@@ -1,0 +1,6 @@
+<viewsettings>
+  <!-- Enquadramento validado no SUMO GUI; nao altera semaforos nem rede. -->
+  <scheme name="real world"/>
+  <viewport zoom="713.28" x="252.25" y="248.38" angle="0"/>
+  <delay value="100"/>
+</viewsettings>
