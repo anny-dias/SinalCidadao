@@ -5,11 +5,12 @@ from xml.sax.saxutils import escape
 from reportlab.lib import colors
 from reportlab.lib.enums import TA_CENTER, TA_LEFT
 from reportlab.lib.pagesizes import A4
+from reportlab.lib.utils import ImageReader
 from reportlab.lib.styles import ParagraphStyle
 from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
 from reportlab.platypus import (
-    HRFlowable, KeepTogether, PageBreak, Paragraph, SimpleDocTemplate,
+    HRFlowable, Image, KeepTogether, PageBreak, Paragraph, SimpleDocTemplate,
     Spacer, Table, TableStyle,
 )
 
@@ -72,6 +73,15 @@ def grid(rows, widths):
     story.append(table)
 
 
+def screenshot(filename, max_width=515, max_height=470):
+    path = ROOT / "assets" / filename
+    if not path.is_file():
+        raise FileNotFoundError(f"Captura não encontrada: {path}")
+    iw, ih = ImageReader(str(path)).getSize()
+    scale = min(max_width / iw, max_height / ih)
+    story.append(Image(str(path), width=iw * scale, height=ih * scale, hAlign="CENTER"))
+
+
 story.append(Spacer(1, 76))
 p("FIAP  /  GLOBAL SOLUTION 2026.2", "muted")
 p("SINAL CIDADÃO", "title")
@@ -84,12 +94,18 @@ grid([
     ["Disciplina", "Robotic Process Automation (RPA)"],
     ["Repositório", "https://github.com/anny-dias/SinalCidadao"],
     ["Vídeo de até 3 minutos", "<b>PENDENTE:</b> URL da gravação"],
-    ["URL do MVP", "Dashboard local em 127.0.0.1:8765; hospedagem pública não realizada"],
+    ["Acesso ao MVP", "Dashboard local: http://127.0.0.1:8765"],
     ["Data da validação", "17 de novembro de 2026"],
 ], [150, 365])
 story.append(Spacer(1, 28))
 p("Status: protótipo acadêmico operacional local. A simulação e os testes foram executados no Windows; "
   "o endereço do repositório foi informado pela equipe e o link do vídeo segue pendente.", "muted")
+p("<b>Benefício esperado para o cidadão:</b> uma política que considere filas e pedidos de travessia "
+  "poderia reduzir esperas desnecessárias após validações específicas. Os ganhos observados neste "
+  "trabalho são apenas simulados; não demonstram redução de acidentes ou segurança viária real.", "muted")
+p("<b>Justificativa da tecnologia:</b> Python facilita regras e testes; SUMO cria cenários controlados; "
+  "TraCI integra leituras e ajustes; SQLite mantém decisões auditáveis; JSON e JSONL compartilham "
+  "resultados com o painel sem exigir infraestrutura externa.", "muted")
 story.append(PageBreak())
 
 h("01  Contexto e problema")
@@ -126,6 +142,15 @@ p("Na política de prioridade de pedestres v4, apenas a fase principal que autor
   "As fases intermediárias e amarelas não são reprogramadas. Travessias autorizadas ainda ocupadas "
   "podem estender o verde em blocos de 2 segundos, até 10 segundos por fase. "
   "O controlador não pula fases nem comanda sinais físicos.")
+
+story.append(PageBreak())
+h("Fluxo BPMN — automação ponta a ponta")
+p("Diagrama gerado a partir do processo estruturado em <b>docs/fluxo.bpmn</b>. "
+  "Inclui decisões, processamento repetitivo, falhas e publicação do resultado no MVP.", "muted")
+bpmn_image = ROOT / "assets" / "fluxo_bpmn.png"
+if not bpmn_image.is_file():
+    raise FileNotFoundError("Gere o BPMN primeiro: python docs/render_bpmn.py")
+story.append(Image(str(bpmn_image), width=349, height=648, hAlign="CENTER"))
 
 story.append(PageBreak())
 h("05  Cenários comparados (demanda alta, 600 passos, semente 42)")
@@ -166,13 +191,21 @@ grid([
 
 story.append(PageBreak())
 h("07  Evidências disponíveis no projeto")
-p("<b>data/runs/*.metrics.json</b> - indicadores de cada simulação.<br/>"
-  "<b>data/runs/*.safety.jsonl</b> - ações e motivos de prioridade de pedestres.<br/>"
-  "<b>data/runs/*.telemetry.jsonl</b> - eventos de leitura.<br/>"
-  "<b>data/validacao_final.json</b> - comparação e verificações automáticas.<br/>"
-  "<b>docs/fluxo.bpmn</b> - fluxo do processo.<br/>"
+p("<b>logs/exemplo_auditoria.jsonl</b> - amostra real gerada pela automação com dados sintéticos.<br/>"
+  "<b>assets/fluxo_bpmn.png</b> - representação visual do BPMN (incluída neste PDF).<br/>"
+  "<b>data/runs/*.metrics.json</b> - métricas criadas localmente pelas simulações (não versionadas).<br/>"
+  "<b>data/runs/*.safety.jsonl</b> - auditoria SUMO local (não versionada).<br/>"
+  "<b>docs/fluxo.bpmn</b> - definição BPMN editável.<br/>"
+  "<b>docs/EVIDENCIAS.md</b> - comandos e lista de capturas reais a anexar.<br/>"
   "<b>docs/PDD.md</b> - descrição detalhada do processo.<br/>"
   "<b>docs/roteiro-video.md</b> - roteiro de demonstração.")
+p("<b>Execução de amostra:</b> 4 processados, 1 duplicado, 1 inválido. "
+  "Entre os registros auditados: <b>GRANT_GREEN</b>, <b>HOLD_PEDESTRIAN_PHASE</b>, "
+  "<b>FIXED_TIME_FALLBACK</b>, <b>SKIPPED_DUPLICATE</b> e <b>ERROR</b>.")
+
+p("As próximas páginas contêm capturas reais enviadas pela equipe em 17/11/2026. "
+  "O PDF completo exportado do painel acompanha o repositório em "
+  "<b>assets/dashboard_comparativo.pdf</b>.", "muted")
 
 h("08  Limitações e responsabilidade")
 p("A simulação utiliza um único cruzamento simplificado, 600 passos e semente fixa. "
@@ -194,6 +227,23 @@ p("O Sinal Cidadão integra simulação, automação RPA, auditoria, regras adap
   "de prioridade de travessia e dashboard de execução e análise. "
   "A validação demonstrou funcionamento reprodutível no cenário testado, "
   "com documentação de limitações e sem alegações de implantação viária real.")
+
+story.append(PageBreak())
+h("Anexo A — Integração com o MVP e cenário simulado")
+p("Captura do dashboard em execução, exibindo os três cenários comparáveis e seus indicadores.", "muted")
+screenshot("dashboard.png", max_height=365)
+story.append(Spacer(1, 12))
+p("Cruzamento em execução no SUMO-GUI: veículos, travessias e estados de sinalização simulados.", "muted")
+screenshot("sumo_cruzamento.png", max_height=260)
+
+story.append(PageBreak())
+h("Anexo B — Testes e tratamento de exceções")
+p("Execução real da suíte de testes no Windows: 38 verificações concluídas com OK.", "muted")
+screenshot("testes_38_ok.png", max_height=390)
+story.append(Spacer(1, 16))
+p("Falha intencional de entrada inexistente, seguida da leitura do registro de auditoria "
+  "com codificação UTF-8. A ocorrência ERROR e o caminho ausente permanecem verificáveis.", "muted")
+screenshot("tratamento_falha.png", max_height=110)
 
 
 def footer(canvas, doc):

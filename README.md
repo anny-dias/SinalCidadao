@@ -8,10 +8,68 @@ Automação operacional do MVP **Sinal Cidadão**, semáforo adaptativo CitizenT
 
 ```bash
 python -m src.cli --input data/leituras.json --db data/citizenflow.db
-python -m src.server --db data/citizenflow.db --port 8000
+python -m src.server --db data/citizenflow.db --port 8765
 ```
 
-Acesse `http://localhost:8000` para consultar as decisões e `http://localhost:8000/api/decisions` para integrar com outro componente do MVP. Execute `python -m unittest discover -s tests -v` para os cenários de validação.
+Acesse `http://localhost:8765` para consultar as decisões e `http://localhost:8765/api/decisions` para integrar com outro componente do MVP. Execute `python -m unittest discover -s tests -v` para os cenários de validação.
+
+## Guia rápido — demonstração no Windows
+
+Execute estes comandos **a partir da raiz do projeto** no PowerShell. Eles demonstram a automação de ponta a ponta: processamento de eventos, decisões, exceções, auditoria, testes, SUMO e integração ao dashboard.
+
+### 1. Terminal A: iniciar o dashboard
+
+```powershell
+.\.venv\Scripts\python.exe -m src.server --port 8765
+```
+
+Abra `http://localhost:8765` e **deixe esse terminal aberto**. O servidor continua executando enquanto espera requisições.
+
+### 2. Terminal B: processar eventos de demonstração
+
+```powershell
+.\.venv\Scripts\python.exe -m src.cli --input data/leituras.json --db data/video_demonstracao_01.sqlite --log logs/video_demonstracao_01.jsonl
+Get-Content -Encoding utf8 logs/video_demonstracao_01.jsonl
+```
+
+Com um banco novo, a entrada sintética produz `4` processados, `1` duplicado e `1` inválido. A auditoria exibe as ações `GRANT_GREEN`, `HOLD_PEDESTRIAN_PHASE`, `FIXED_TIME_FALLBACK`, `SKIPPED_DUPLICATE` e `ERROR`. Se o banco já foi utilizado, novas execuções contarão duplicados; escolha outro nome de banco para um teste novo sem apagar o anterior.
+
+### 3. Terminal B: demonstrar tratamento de falhas
+
+```powershell
+.\.venv\Scripts\python.exe -m src.cli --input data/arquivo_que_nao_existe.json --db data/video_demonstracao_01.sqlite --log logs/video_falha_01.jsonl
+Get-Content -Encoding utf8 logs/video_falha_01.jsonl
+```
+
+**O primeiro comando deve falhar intencionalmente.** O segundo mostra o registro com `timestamp` e `level: ERROR`, comprovando a identificação e a auditoria de arquivo ausente.
+
+### 4. Terminal B: executar os testes
+
+```powershell
+.\.venv\Scripts\python.exe -m unittest discover -s tests -v
+```
+
+O grupo validou `Ran 38 tests` e `OK`; confira o resultado atual no terminal.
+
+### 5. Terminal B: demonstrar o SUMO-GUI
+
+```powershell
+.\.venv\Scripts\python.exe -m src.sumo_bridge --mode adaptive --pedestrians --demand high --gui
+```
+
+Mostre veículos, pedestres e mudança de fases. Deixe a simulação concluir os 600 passos para gerar métricas; **não feche o SUMO enquanto o Python estiver conectado**.
+
+### 6. Navegador: demonstrar o MVP
+
+1. Abra `http://localhost:8765` e clique em **Atualizar dados**.
+2. Mostre os indicadores e o comparativo dos três cenários.
+3. Role até **Laboratório de simulação**, mostre os três modos e os botões **Iniciar simulação**, **Comparar 3 cenários** e **Executar testes**.
+4. Clique em **Executar testes** para demonstrar a integração dos comandos pelo painel.
+5. Mostre **Últimas simulações** com os resultados já registrados.
+
+**Atenção ao vídeo de até três minutos:** o botão **Comparar 3 cenários** executa três simulações completas, podendo levar vários minutos. Utilize resultados existentes ou cortes de tempo identificados, sem simular execução instantânea.
+
+**Ordem de apresentação sugerida:** lote e falha no terminal → testes → SUMO → dashboard → métricas → conclusão. O roteiro resumido de falas está em `docs/roteiro-video.md`.
 
 ## SUMO conectado (experimental)
 
@@ -57,12 +115,12 @@ Os três cenários permitem diferenciar a vantagem do adaptativo e o efeito adic
 Após executar os três cenários de alta demanda indicados acima, mantenha os arquivos `.metrics.json` na pasta `data/runs` e, em **outro terminal**, execute:
 
 ```powershell
-.\.venv\Scripts\python.exe -m src.server --port 8000
+.\.venv\Scripts\python.exe -m src.server --port 8765
 ```
 
-Abra **http://localhost:8000** no navegador. O painel mostra os três modos, indicadores veiculares e de pedestres, reduções percentuais em relação ao modo fixo, últimas execuções e prioridades acionadas. Atualize manualmente ou aguarde 15 segundos após outra simulação. Endpoints de leitura: `GET /api/runs` (até 100 relatórios recentes), `GET /api/comparison` (últimos três cenários compatíveis de 600 passos) e `GET /api/decisions` (decisões SQLite, que só aparecem se houver base gerada em `data/citizenflow.db`). O dashboard funciona mesmo sem SQLite, pois os indicadores SUMO vêm de `data/runs`. A API é local em `127.0.0.1`, não dá comandos ao SUMO nem controla semáforos físicos.
+Abra **http://localhost:8765** no navegador. O painel mostra os três modos, indicadores veiculares e de pedestres, reduções percentuais em relação ao modo fixo, últimas execuções e prioridades acionadas. Atualize manualmente ou aguarde 15 segundos após outra simulação. Endpoints de leitura: `GET /api/runs` (até 100 relatórios recentes), `GET /api/comparison` (últimos três cenários compatíveis de 600 passos) e `GET /api/decisions` (decisões SQLite, que só aparecem se houver base gerada em `data/citizenflow.db`). O dashboard funciona mesmo sem SQLite, pois os indicadores SUMO vêm de `data/runs`. A API é local em `127.0.0.1`, não dá comandos ao SUMO nem controla semáforos físicos.
 
-No Windows, caso a porta 8000 esteja reservada, utilize `--port 8765` e acesse `http://127.0.0.1:8765`. O terminal permanece aguardando requisições enquanto o servidor estiver aberto; encerre com `Ctrl+C`.
+Se a porta 8765 estiver reservada, escolha outra porta livre e utilize o mesmo número no endereço do navegador. O terminal permanece aguardando requisições enquanto o servidor estiver aberto; encerre com `Ctrl+C`.
 
 ### Laboratório de simulação no dashboard
 
@@ -115,17 +173,17 @@ O adaptador de entrada usa JSON com `event_id`, `timestamp`, `approaches` e `cam
 - `data/`: eventos fictícios de demonstração.
 - `docs/`: PDD, BPMN, diagrama gerado, guia de evidências e roteiro de vídeo.
 - `tests/`: testes automatizados.
-- `assets/`: fluxograma BPMN visual; incluir capturas reais do Windows antes da entrega.
+- `assets/`: fluxograma BPMN, capturas reais do dashboard, SUMO, testes, tratamento de falha e PDF comparativo.
 - `logs/`: exemplo de auditoria com dados sintéticos; logs locais adicionais não são versionados.
 
 ## Publicação e entrega
 
 1. Conferir integrantes/RMs e o endereço do GitHub já preenchidos; adicionar o link do vídeo no relatório PDF (gerado com `python docs/build_report.py` no ambiente com `reportlab`).
 2. Publicar um repositório público GitHub com esta pasta; conferir que `.gitignore` exclui `.venv`, caches, logs e dados transitórios.
-3. Gravar vídeo de até 3 minutos mostrando dashboard, SUMO-GUI, comparativo, 38 testes e auditoria; ver `docs/roteiro-video.md`.
+3. Gravar vídeo de até 3 minutos mostrando terminal, sucesso/erro, SUMO-GUI, integração ao dashboard, comparativo e testes. Siga o **Guia rápido — demonstração no Windows** deste README e o roteiro resumido `docs/roteiro-video.md`.
 4. Conferir o enunciado e enviar PDF e links requeridos na plataforma da disciplina. O prazo informado pelo grupo foi 19/11/2026, 23h55; verificar antes do envio.
 
-**Evidências para a rubrica:** `docs/EVIDENCIAS.md` contém comandos para demonstrar sucesso, regra de decisão, duplicidade e falha sem interromper a aplicação. O BPMN está em `docs/fluxo.bpmn` e como imagem em `assets/fluxo_bpmn.png` (também incluída no PDF). A coleta de screenshots reais do dashboard, SUMO e testes ainda deve ser feita no Windows antes da submissão.
+**Evidências para a rubrica:** `docs/EVIDENCIAS.md` contém comandos para demonstrar sucesso, regra de decisão, duplicidade e falha sem interromper a aplicação. O BPMN está em `docs/fluxo.bpmn` e como imagem em `assets/fluxo_bpmn.png` (também incluída no relatório). As capturas reais do dashboard, SUMO, testes e falha recebidas da equipe estão em `assets/` e nos anexos do PDF técnico.
 
 **Resultados validados no Windows (17/11/2026):** o dashboard executou 38 testes com `OK` e realizou a comparação completa dos três modos SUMO-GUI. No cenário prioritário, o tempo médio de espera por viagem veicular caiu de 27,24 s para 15,27 s (-43,94%) e a espera observada antes da travessia de 0,99 s para 0,91 s (-8,08%) em relação ao fixo. O adaptativo sem prioridade concluiu mais viagens veiculares que o prioritário (328 contra 310). Esses valores dependem do cenário e da semente; não são garantia de comportamento em trânsito real.
 

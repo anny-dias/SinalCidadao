@@ -10,6 +10,10 @@
 
 **TO-BE:** o simulador fornece contagens agregadas; a ponte TraCI gera eventos JSON; o RPA valida e deduplica; as decisões são registradas em SQLite e JSON Lines; o controlador ajusta *apenas a duração das fases permitidas*; métricas e auditoria são registradas; o dashboard exibe resultados, inicia simulações e executa testes por comandos predefinidos.
 
+**Benefício potencial ao cidadão:** com validação adequada, o controle adaptativo poderia reduzir esperas desnecessárias de veículos e pedestres e melhorar a previsibilidade da travessia. A evidência atual é restrita ao cruzamento simulado; não comprova segurança nem ganhos em vias reais.
+
+**Justificativa técnica:** Python facilita expressar e testar regras de lote e exceções; SUMO permite cenários controlados e reproduzíveis sem intervenção em ruas; TraCI conecta leituras e controle de duração das fases; SQLite mantém auditoria local estruturada; JSON/JSONL facilitam interoperabilidade com dashboard e análise posterior.
+
 ## 2. Entradas, recursos e fronteiras
 
 | Entrada | Contrato / origem |
