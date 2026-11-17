@@ -1,0 +1,7 @@
+{"timestamp": "2026-11-17T20:08:15.151283+00:00", "level": "INFO", "event_id": "sim-001", "message": "GRANT_GREEN via=Norte duração=34s"}
+{"timestamp": "2026-11-17T20:08:15.151573+00:00", "level": "INFO", "event_id": "sim-002", "message": "GRANT_GREEN via=Sul duração=14s"}
+{"timestamp": "2026-11-17T20:08:15.151680+00:00", "level": "INFO", "event_id": "sim-003", "message": "HOLD_PEDESTRIAN_PHASE via=Faixa escolar duração=15s"}
+{"timestamp": "2026-11-17T20:08:15.151748+00:00", "level": "INFO", "event_id": "sim-004", "message": "FIXED_TIME_FALLBACK via=None duração=30s"}
+{"timestamp": "2026-11-17T20:08:15.151776+00:00", "level": "WARN", "event_id": "sim-001", "message": "SKIPPED_DUPLICATE"}
+{"timestamp": "2026-11-17T20:08:15.151841+00:00", "level": "ERROR", "event_id": "sim-005", "message": "Item 5: queue_vehicles inválido na via Norte"}
+{"timestamp": "2026-11-17T20:08:15.151944+00:00", "level": "INFO", "event_id": null, "message": "Resumo: {'processed': 4, 'duplicates': 1, 'failed': 1}"}

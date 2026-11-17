@@ -113,10 +113,10 @@ O adaptador de entrada usa JSON com `event_id`, `timestamp`, `approaches` e `cam
 
 - `src/`: automação e servidor de integração.
 - `data/`: eventos fictícios de demonstração.
-- `docs/`: PDD, BPMN e roteiro de vídeo.
+- `docs/`: PDD, BPMN, diagrama gerado, guia de evidências e roteiro de vídeo.
 - `tests/`: testes automatizados.
-- `assets/`: reservado para capturas do vídeo/painel.
-- `logs/`: registros de demonstração (gerados durante execução).
+- `assets/`: fluxograma BPMN visual; incluir capturas reais do Windows antes da entrega.
+- `logs/`: exemplo de auditoria com dados sintéticos; logs locais adicionais não são versionados.
 
 ## Publicação e entrega
 
@@ -124,6 +124,8 @@ O adaptador de entrada usa JSON com `event_id`, `timestamp`, `approaches` e `cam
 2. Publicar um repositório público GitHub com esta pasta; conferir que `.gitignore` exclui `.venv`, caches, logs e dados transitórios.
 3. Gravar vídeo de até 3 minutos mostrando dashboard, SUMO-GUI, comparativo, 38 testes e auditoria; ver `docs/roteiro-video.md`.
 4. Conferir o enunciado e enviar PDF e links requeridos na plataforma da disciplina. O prazo informado pelo grupo foi 19/11/2026, 23h55; verificar antes do envio.
+
+**Evidências para a rubrica:** `docs/EVIDENCIAS.md` contém comandos para demonstrar sucesso, regra de decisão, duplicidade e falha sem interromper a aplicação. O BPMN está em `docs/fluxo.bpmn` e como imagem em `assets/fluxo_bpmn.png` (também incluída no PDF). A coleta de screenshots reais do dashboard, SUMO e testes ainda deve ser feita no Windows antes da submissão.
 
 **Resultados validados no Windows (17/11/2026):** o dashboard executou 38 testes com `OK` e realizou a comparação completa dos três modos SUMO-GUI. No cenário prioritário, o tempo médio de espera por viagem veicular caiu de 27,24 s para 15,27 s (-43,94%) e a espera observada antes da travessia de 0,99 s para 0,91 s (-8,08%) em relação ao fixo. O adaptativo sem prioridade concluiu mais viagens veiculares que o prioritário (328 contra 310). Esses valores dependem do cenário e da semente; não são garantia de comportamento em trânsito real.
 

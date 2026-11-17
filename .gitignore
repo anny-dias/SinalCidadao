@@ -4,6 +4,7 @@ __pycache__/
 *.sqlite
 .venv/
 logs/*.jsonl
+!logs/exemplo_auditoria.jsonl
 data/runs/
 data/validacao_final.json
 CitizenFlow_RPA_Entrega.zip
