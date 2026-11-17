@@ -5,7 +5,7 @@
 1. Abra a pasta `C:\Users\anny.dias\Documents\SinalCidadao` no PowerShell.
 2. Verifique se o projeto executa os 38 testes: `\.venv\Scripts\python.exe -m unittest discover -s tests -v` (no PowerShell, acrescente `.` antes da barra inicial: `.\.venv\Scripts\python.exe ...`).
 3. Confira se não há senhas, tokens, nomes de pessoas nas amostras ou outros dados privados.
-4. Inclua nomes e RMs dos integrantes no relatório e atualize o PDF antes da entrega.
+4. Confira os nomes e RMs dos três integrantes já incluídos no relatório.
 
 ## Publicar a partir da pasta do projeto
 

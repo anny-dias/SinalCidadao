@@ -69,7 +69,7 @@ Servidor escuta apenas `127.0.0.1`; POST verifica origem/host e só permite coma
 
 ## 7. Pendências de entrega
 
-- Inserir nomes completos, RMs, professor/turma conferidos no enunciado e links finais.
-- Publicar repositório GitHub público, preservando `.gitignore` e sem enviar `.venv`, dados pessoais ou arquivos temporários.
+- Integrantes informados: Henrique Lima (RM 551528), Pedro Henrique Menezes (RM 97432) e Anny Dias (RM 98295). Confirmar professor/turma no enunciado e adicionar links finais.
+- Conferir repositório informado pela equipe: https://github.com/anny-dias/SinalCidadao, preservando `.gitignore` e sem enviar `.venv`, dados pessoais ou arquivos temporários.
 - Gravar vídeo de até 3 minutos (ver `docs/roteiro-video.md`).
 - Confirmar que o PDF e os links exigidos pela disciplina correspondem ao enunciado vigente.

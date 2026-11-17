@@ -120,7 +120,7 @@ O adaptador de entrada usa JSON com `event_id`, `timestamp`, `approaches` e `cam
 
 ## Publicação e entrega
 
-1. Preencher integrantes/RMs e links no relatório PDF (gerado com `python docs/build_report.py` no ambiente com `reportlab`).
+1. Conferir integrantes/RMs e o endereço do GitHub já preenchidos; adicionar o link do vídeo no relatório PDF (gerado com `python docs/build_report.py` no ambiente com `reportlab`).
 2. Publicar um repositório público GitHub com esta pasta; conferir que `.gitignore` exclui `.venv`, caches, logs e dados transitórios.
 3. Gravar vídeo de até 3 minutos mostrando dashboard, SUMO-GUI, comparativo, 38 testes e auditoria; ver `docs/roteiro-video.md`.
 4. Conferir o enunciado e enviar PDF e links requeridos na plataforma da disciplina. O prazo informado pelo grupo foi 19/11/2026, 23h55; verificar antes do envio.
@@ -129,7 +129,11 @@ O adaptador de entrada usa JSON com `event_id`, `timestamp`, `approaches` e `cam
 
 ## Equipe
 
-**Preencher:** nomes completos e RMs dos integrantes.
+- Henrique Lima — RM 551528
+- Pedro Henrique Menezes — RM 97432
+- Anny Dias — RM 98295
+
+**Repositório informado pela equipe:** https://github.com/anny-dias/SinalCidadao
 
 ## Segurança / LGPD
 

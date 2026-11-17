@@ -80,16 +80,16 @@ p("Mobilidade inteligente, pessoas em primeiro lugar.")
 story.append(HRFlowable(width="100%", thickness=2, color=GREEN, spaceBefore=8, spaceAfter=29))
 grid([
     ["CAMPO", "IDENTIFICAÇÃO"],
-    ["Equipe", "<b>PENDENTE:</b> inserir nomes completos e RMs"],
+    ["Equipe", "Henrique Lima - RM 551528<br/>Pedro Henrique Menezes - RM 97432<br/>Anny Dias - RM 98295"],
     ["Disciplina", "Robotic Process Automation (RPA)"],
-    ["Repositório", "<b>PENDENTE:</b> URL GitHub público"],
+    ["Repositório", "https://github.com/anny-dias/SinalCidadao"],
     ["Vídeo de até 3 minutos", "<b>PENDENTE:</b> URL da gravação"],
     ["URL do MVP", "Dashboard local em 127.0.0.1:8765; hospedagem pública não realizada"],
     ["Data da validação", "17 de novembro de 2026"],
 ], [150, 365])
 story.append(Spacer(1, 28))
 p("Status: protótipo acadêmico operacional local. A simulação e os testes foram executados no Windows; "
-  "a publicação externa e os dados da equipe ainda dependem de confirmação.", "muted")
+  "o endereço do repositório foi informado pela equipe e o link do vídeo segue pendente.", "muted")
 story.append(PageBreak())
 
 h("01  Contexto e problema")
@@ -184,8 +184,8 @@ p("O servidor escuta em 127.0.0.1 e aceita somente ações locais predefinidas; 
   "não deve ser exposto à internet nem conectado a controladores físicos.")
 
 h("09  Preparação da entrega")
-p("1. Confirmar nome oficial da equipe e RMs.<br/>"
-  "2. Publicar código-fonte em repositório GitHub público, sem .venv ou dados privados.<br/>"
+p("1. Conferir os nomes e RMs da equipe informados neste relatório.<br/>"
+  "2. Conferir a publicação em https://github.com/anny-dias/SinalCidadao, sem .venv ou dados privados.<br/>"
   "3. Gravar vídeo de até três minutos, utilizando cortes para simulações longas.<br/>"
   "4. Inserir links válidos e conferir os requisitos do enunciado antes de enviar este PDF.")
 
