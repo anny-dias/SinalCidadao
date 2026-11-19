@@ -178,9 +178,9 @@ O adaptador de entrada usa JSON com `event_id`, `timestamp`, `approaches` e `cam
 
 ## Publicação e entrega
 
-1. Conferir integrantes/RMs e o endereço do GitHub já preenchidos; adicionar o link do vídeo no relatório PDF (gerado com `python docs/build_report.py` no ambiente com `reportlab`).
+1. Conferir integrantes/RMs e os links do GitHub e do vídeo já preenchidos no relatório PDF (gerado com `python docs/build_report.py` no ambiente com `reportlab`).
 2. Publicar um repositório público GitHub com esta pasta; conferir que `.gitignore` exclui `.venv`, caches, logs e dados transitórios.
-3. Gravar vídeo de até 3 minutos mostrando terminal, sucesso/erro, SUMO-GUI, integração ao dashboard, comparativo e testes. Siga o **Guia rápido — demonstração no Windows** deste README e o roteiro resumido `docs/roteiro-video.md`.
+3. Vídeo de demonstração publicado: https://youtu.be/i5E7c9YGxt0. Ele apresenta terminal, sucesso/erro, SUMO-GUI, dashboard, comparativo e testes. Consulte o **Guia rápido — demonstração no Windows** e o roteiro `docs/roteiro-video.md` para reproduzir.
 4. Conferir o enunciado e enviar PDF e links requeridos na plataforma da disciplina. O prazo informado pelo grupo foi 19/11/2026, 23h55; verificar antes do envio.
 
 **Evidências para a rubrica:** `docs/EVIDENCIAS.md` contém comandos para demonstrar sucesso, regra de decisão, duplicidade e falha sem interromper a aplicação. O BPMN está em `docs/fluxo.bpmn` e como imagem em `assets/fluxo_bpmn.png` (também incluída no relatório). As capturas reais do dashboard, SUMO, testes e falha recebidas da equipe estão em `assets/` e nos anexos do PDF técnico.
@@ -194,6 +194,8 @@ O adaptador de entrada usa JSON com `event_id`, `timestamp`, `approaches` e `cam
 - Anny Dias — RM 98295
 
 **Repositório informado pela equipe:** https://github.com/anny-dias/SinalCidadao
+
+**Vídeo de demonstração:** https://youtu.be/i5E7c9YGxt0
 
 ## Segurança / LGPD
 
